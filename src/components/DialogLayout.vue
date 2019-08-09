@@ -1,58 +1,73 @@
 <template>
   <v-dialog
-    content-class="vuedl-layout"
+    content-class="relative"
     v-model="isActive"
-    :fullscreen="fullscreen" ref="vdialog"
+    :fullscreen="fullscreen"
+    ref="vdialog"
     :max-width="getWidth"
     :persistent="persistent || loading"
     :scrollable="scrollable"
     :transition="transition"
     @keydown.esc="dismiss"
   >
-    <div
+    <!-- <div
       v-if="showClose && !persistent && !loading"
-      class="vuedl-layout__closeBtn"
-      @click.stop="close">×</div>
-    <dialog-child v-bind="$options.propsData" ref="dialog"/>
+      class="vdialog-layout__closeBtn"
+      @click.stop="close"
+    >×</div> -->
+    <dialog-child
+      v-bind="childProps"
+      ref="dialog"
+    />
   </v-dialog>
 </template>
 
 <script>
-export default {
-  props: {
-    fullscreen: Boolean,
-    scrollable: Boolean,
-    transition: {
-      type: [String, Boolean],
-      default: 'dialog-transition'
+  export default {
+    props: {
+      fullscreen: Boolean,
+      scrollable: Boolean,
+      transition: {
+        type: [String, Boolean],
+        default: 'dialog-transition'
+      },
+      showClose: {
+        type: Boolean,
+        default: () => true
+      }
     },
-    showClose: {
-      type: Boolean,
-      default: () => true
-    }
-  },
-  methods: {
-    _destroy () {
-      // Allow to draw transition, cause vuetify doesn't have onClose method
-      setTimeout(() => {
-        this.$destroy()
-      }, 1000)
-      // this.$refs.vdialog.$refs.dialog.addEventListener('transitionend', this.onTransitionEnd)
-    }
-    // onTransitionEnd (event) {
-    //   if (['opacity', 'z-index'].indexOf(event.propertyName) >= 0) {
-    //     this.$refs.vdialog.$refs.dialog.removeEventListener('transitionend', this.onTransitionEnd)
-    //     this.$destroy()
-    //   }
-    // }
+    methods: {
+      _destroy() {
+        // Allow to draw transition, cause vuetify doesn't have onClose method
+        setTimeout(() => {
+          this.$destroy()
+        }, 1000)
+        // this.$refs.vdialog.$refs.dialog.addEventListener('transitionend', this.onTransitionEnd)
+      }
+      // onTransitionEnd (event) {
+      //   if (['opacity', 'z-index'].indexOf(event.propertyName) >= 0) {
+      //     this.$refs.vdialog.$refs.dialog.removeEventListener('transitionend', this.onTransitionEnd)
+      //     this.$destroy()
+      //   }
+      // }
+    },
+    computed: {
+      childProps() {
+        return {
+          ...this.$options.props,
+          dialogLoading: this.loading,
+          dialogPersistent: this.persistent
+        }
+      },
+    },
   }
-}
 </script>
-<style>
-  .vuedl-layout {
+<!-- <style>
+  .vdialog-layout {
     position: relative;
   }
-  .vuedl-layout__closeBtn {
+
+  .vdialog-layout__closeBtn {
     position: absolute;
     top: 0px;
     font-family: -webkit-pictograph;
@@ -62,7 +77,8 @@ export default {
     z-index: 1000;
     cursor: pointer;
   }
-  .vuedl-layout__closeBtn:hover {
+
+  .vdialog-layout__closeBtn:hover {
     opacity: 1;
   }
-</style>
+</style> -->

@@ -16,24 +16,24 @@ export interface DialogAction {
   text: string
   key: string
   component?: string
-  flat? : boolean
-  outline? : boolean
-  icon? : string
-  color? : string
-  round? : boolean
+  flat?: boolean
+  outlined?: boolean
+  icon?: string
+  color?: string
+  rounded?: boolean
   disabled?: boolean
-  handle? (action: any): Promise<any>
+  handle?(action: any): Promise<any>
 }
 
 interface DialogActionable {
-  actions?: object | Array<string|DialogAction> | Array<DialogAction>
-  handle? (action: any): Promise<any>
+  actions?: object | Array<string | DialogAction> | Array<DialogAction>
+  handle?(action: any): Promise<any>
 }
 
 export interface DialogObject {
-  show (): DialogObject | undefined
-  wait (): Promise<any>
-  close (): void
+  show(): DialogObject | undefined
+  wait(): Promise<any>
+  close(): void
   vm: object
   vmd: object
 }
@@ -69,24 +69,24 @@ export interface DialogConfirmOptions extends DialogActionable {
 }
 
 export interface VuetifyDialog {
-  component (name: string, options: object | VueConstructor): void
-  show (component: object | VueConstructor, options?: object): DialogObject
+  component(name: string, options: object | VueConstructor): void
+  show(component: object | VueConstructor, options?: object): DialogObject
   // implemented dialogs
-  confirm (options: DialogConfirmOptions): Promise<any>
-  prompt (options: DialogConfirmOptions): Promise<any>
-  warning (options: DialogConfirmOptions): Promise<any>
-  error (options: DialogConfirmOptions): Promise<any>
+  confirm(options: DialogConfirmOptions): Promise<any>
+  prompt(options: DialogConfirmOptions): Promise<any>
+  warning(options: DialogConfirmOptions): Promise<any>
+  error(options: DialogConfirmOptions): Promise<any>
   notify: {
-    error (text: string, options?: DialogNotifyOptions): Promise<any>
-    warning (text: string, options?: DialogNotifyOptions): Promise<any>
-    info (text: string, options?: DialogNotifyOptions): Promise<any>
-    success (text: string, options?: DialogNotifyOptions): Promise<any>
+    error(text: string, options?: DialogNotifyOptions): Promise<any>
+    warning(text: string, options?: DialogNotifyOptions): Promise<any>
+    info(text: string, options?: DialogNotifyOptions): Promise<any>
+    success(text: string, options?: DialogNotifyOptions): Promise<any>
   }
   message: {
-    error (text: string, options?: DialogMessageOptions): Promise<any>
-    warning (text: string, options?: DialogMessageOptions): Promise<any>
-    info (text: string, options?: DialogMessageOptions): Promise<any>
-    success (text: string, options?: DialogMessageOptions): Promise<any>
+    error(text: string, options?: DialogMessageOptions): Promise<any>
+    warning(text: string, options?: DialogMessageOptions): Promise<any>
+    info(text: string, options?: DialogMessageOptions): Promise<any>
+    success(text: string, options?: DialogMessageOptions): Promise<any>
   }
 }
 
@@ -98,7 +98,7 @@ declare module 'vue/types/vue' {
 
 declare module 'vue/types/options' {
   interface ComponentOptions<V extends Vue> {
-    asyncData? (context: object): Promise<any>
+    asyncData?(context: object): Promise<any>
     primaryKey?: string
   }
 }

@@ -14,40 +14,40 @@
 </template>
 <script>
 
-import Actionable from 'vuedl/src/mixins/actionable'
-import DialogAction from './DialogAction.vue'
+  import Actionable from 'vuedl/src/mixins/actionable'
+  import DialogAction from './DialogAction.vue'
 
-export default {
-  components: {
-    DialogAction
-  },
-  mixins: [Actionable],
-  props: {
-    component: [String, Object],
-    color: String,
-    flat: Boolean,
-    round: Boolean,
-    outline: Boolean,
-    passive: Boolean
-  },
-  computed: {
-    nestedProps () {
-      return [ 'color', 'flat', 'icon', 'outline', 'round' ]
-    }
-  },
-  methods: {
-    getActionProps (action) {
-      const res = {
-        component: action.component || this.component,
-        text: action.text
+  export default {
+    components: {
+      DialogAction
+    },
+    mixins: [Actionable],
+    props: {
+      component: [String, Object],
+      color: String,
+      flat: Boolean,
+      rounded: Boolean,
+      outlined: Boolean,
+      passive: Boolean
+    },
+    computed: {
+      nestedProps() {
+        return ['color', 'flat', 'icon', 'outlined', 'rounded']
       }
-      this.nestedProps.forEach(key => {
-        if (action[key] || this[key]) {
-          res[key] = action[key] === undefined ? this[key] : action[key]
+    },
+    methods: {
+      getActionProps(action) {
+        const res = {
+          component: action.component || this.component,
+          text: action.text
         }
-      })
-      return res
+        this.nestedProps.forEach(key => {
+          if (action[key] || this[key]) {
+            res[key] = action[key] === undefined ? this[key] : action[key]
+          }
+        })
+        return res
+      }
     }
   }
-}
 </script>
